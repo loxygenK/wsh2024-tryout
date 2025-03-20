@@ -1,5 +1,6 @@
 import { createReadStream } from 'node:fs';
 import type { ReadStream } from 'node:fs';
+import fsClas from 'node:fs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
@@ -80,6 +81,11 @@ app.get(
     }),
   ),
   async (c) => {
+    const reqId = Math.floor(Math.random() * 1000000000).toString().padStart(10);
+    const colorCode = 20 + Math.floor(Math.random() * 32);
+
+    const log = (...[first, ...second]: Parameters<typeof console.log>) => console.log(`\x1b[38;5;${colorCode}m${reqId} | ${first}`, ...second, "\x1b[m");
+
     const { globby } = await import('globby');
 
     const { ext: reqImgExt, name: reqImgId } = path.parse(c.req.valid('param').imageFile);
@@ -96,6 +102,8 @@ app.get(
       throw new HTTPException(404, { message: 'Not found.' });
     }
 
+    log(`${reqImgId}`);
+
     const origImgFormat = path.extname(origFilePath).slice(1);
     if (!isSupportedImageFormat(origImgFormat)) {
       throw new HTTPException(500, { message: 'Failed to load image.' });
@@ -103,15 +111,29 @@ app.get(
     if (resImgFormat === origImgFormat && c.req.valid('query').width == null && c.req.valid('query').height == null) {
       // 画像変換せずにそのまま返す
       c.header('Content-Type', IMAGE_MIME_TYPE[resImgFormat]);
+      c.header('X-Conversion-Strategy', "Original");
+      log("No image conversion was necessary");
+      return c.body(createStreamBody(createReadStream(origFilePath)));
+    }
+
+    const reqImageSize = c.req.valid('query');
+    const cacheKey = IMAGES_PATH + "/resized--" + `${reqImgId}.${reqImgExt}--${reqImageSize.width}x${reqImageSize.height}.${resImgFormat}`;
+
+    if(fsClas.existsSync(cacheKey)) {
+      // 画像変換せずにそのまま返す
+      c.header('Content-Type', IMAGE_MIME_TYPE[resImgFormat]);
+      c.header('X-Conversion-Strategy', "Cache hit");
+      log("Cache hit");
       return c.body(createStreamBody(createReadStream(origFilePath)));
     }
 
     const origBinary = await fs.readFile(origFilePath);
+
     const image = new Image(await IMAGE_CONVERTER[origImgFormat].decode(origBinary));
-
-    const reqImageSize = c.req.valid('query');
-
     const scale = Math.max((reqImageSize.width ?? 0) / image.width, (reqImageSize.height ?? 0) / image.height) || 1;
+
+    log(`[${origImgFormat} -> ${resImgFormat}], (${scale}x) ${reqImageSize.width}x${reqImageSize.height}`);
+
     const manipulated = image.resize({
       height: Math.ceil(image.height * scale),
       preserveAspectRatio: true,
@@ -125,7 +147,10 @@ app.get(
       width: manipulated.width,
     });
 
+    await fs.writeFile(cacheKey, resBinary);
+
     c.header('Content-Type', IMAGE_MIME_TYPE[resImgFormat]);
+    c.header('X-Conversion-Strategy', "Manipulated");
     return c.body(resBinary);
   },
 );
