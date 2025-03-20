@@ -104,7 +104,7 @@ app.get(
     log(`${reqImgId}`);
 
     const origImgFormat = path.extname(origFilePath).slice(1);
-    const resImgFormat = (c.req.valid('query').format ?? reqImgExt.slice(1)) || origImgFormat;
+    const resImgFormat = "webp"; // (c.req.valid('query').format ?? reqImgExt.slice(1)) || origImgFormat;
 
     if (!isSupportedImageFormat(origImgFormat)) {
       throw new HTTPException(500, { message: 'Failed to load image.' });
