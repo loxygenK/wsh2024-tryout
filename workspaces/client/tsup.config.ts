@@ -34,6 +34,11 @@ export default defineConfig(async (): Promise<Options[]> => {
           ...options.define,
           global: 'globalThis',
         };
+        options.target = "esnext";
+        options.supported = {
+          ...options.supported,
+          bigint: true
+        };
         options.publicPath = '/';
       },
       esbuildPlugins: [
