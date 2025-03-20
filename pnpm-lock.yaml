@@ -66,9 +66,6 @@ importers:
       '@wsh-2024/schema':
         specifier: workspace:*
         version: link:../schema
-      file-type:
-        specifier: 19.0.0
-        version: 19.0.0
       formik:
         specifier: 2.4.5
         version: 2.4.5(react@18.2.0)

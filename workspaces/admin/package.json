@@ -11,7 +11,6 @@
     "@uidotdev/usehooks": "2.4.1",
     "@wsh-2024/image-encrypt": "workspace:*",
     "@wsh-2024/schema": "workspace:*",
-    "file-type": "19.0.0",
     "formik": "2.4.5",
     "framer-motion": "10.16.5",
     "ky": "1.2.0",

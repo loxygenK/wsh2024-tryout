@@ -42,18 +42,7 @@ export default defineConfig(async (): Promise<Options[]> => {
         options.publicPath = '/';
         options.metafile = true;
       },
-      esbuildPlugins: [
-        polyfillNode({
-          globals: {
-            process: false,
-          },
-          polyfills: {
-            events: true,
-            fs: true,
-            path: true,
-          },
-        }),
-      ],
+      esbuildPlugins: [polyfillNode()],
       format: 'iife',
       loader: {
         '.json?file': 'file',
@@ -67,7 +56,7 @@ export default defineConfig(async (): Promise<Options[]> => {
       sourcemap: true,
       splitting: false,
       target: ['chrome58', 'firefox57', 'safari11', 'edge18'],
-      treeshake: false,
+      treeshake: true,
     },
   ];
 });

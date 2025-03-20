@@ -8,11 +8,10 @@ export const compressMiddleware = createMiddleware(async (c, next) => {
   await next();
   const { ZstdStream } = await zstdInit;
 
-  const accept = encoding(c.req.header('X-Accept-Encoding'), ['zstd']);
+  const accept = encoding(c.req.header('Accept-Encoding'), ['zstd']);
 
   switch (accept) {
     case 'zstd': {
-      console.log("zstd is used");
       const transform = new TransformStream<Uint8Array, Uint8Array>({
         transform(chunk, controller) {
           controller.enqueue(ZstdStream.compress(chunk, 12, false));
@@ -22,6 +21,7 @@ export const compressMiddleware = createMiddleware(async (c, next) => {
       c.res = new Response(c.res.body?.pipeThrough(transform), c.res);
 
       c.res.headers.delete('Content-Length');
+      c.res.headers.set('Content-Encoding', 'zstd');
       c.res.headers.set('X-Content-Encoding', 'zstd');
       break;
     }

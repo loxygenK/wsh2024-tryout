@@ -14,6 +14,10 @@ const cacheControlMiddleware = createMiddleware(async (c, next) => {
   c.res.headers.append('Cache-Control', 'no-cache');
 });
 
+app.get("/robots.txt", (c) => {
+  return c.text("User-Agent: *\nDisallow: /");
+});
+
 app.use('*', etag());
 app.use('*', cacheControlMiddleware);
 app.use(
