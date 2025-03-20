@@ -45,3 +45,4 @@ export const GetRankingListResponseSchema = createSelectSchema(ranking)
   .array();
 
 export type GetRankingListResponse = z.infer<typeof GetRankingListResponseSchema>;
+export type GetRankingListResponseElem = GetRankingListResponse[number]["book"];

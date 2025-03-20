@@ -21,7 +21,7 @@ const Pickups: FC = () => {
   return (
     <Flex align="stretch" direction="row" gap={Space * 2} justify="flex-start">
       {featureList.map((feature) => (
-        <FeatureCard key={feature.id} bookId={feature.book.id} />
+        <FeatureCard key={feature.id} book={feature.book} />
       ))}
     </Flex>
   );
@@ -32,7 +32,7 @@ const Rankings: FC = () => {
   return (
     <Flex align="center" as="ul" direction="column" justify="center">
       {rankingList.map((ranking) => (
-        <RankingCard key={ranking.id} bookId={ranking.book.id} />
+        <RankingCard key={ranking.id} book={ranking.book} />
       ))}
     </Flex>
   );
@@ -42,11 +42,11 @@ const Release: FC = () => {
   const todayStr = getDayOfWeekStr(new Date());
   const { data: release } = useRelease({ params: { dayOfWeek: todayStr } });
   return (
-      <Flex align="stretch" gap={Space * 2} justify="flex-start">
-        {release.books.map((book) => (
-          <BookCard key={book.id} bookId={book.id} />
-        ))}
-      </Flex>
+    <Flex align="stretch" gap={Space * 2} justify="flex-start">
+      {release.books.map((book) => (
+        <BookCard key={book.id} book={book} />
+      ))}
+    </Flex>
   );
 };
 

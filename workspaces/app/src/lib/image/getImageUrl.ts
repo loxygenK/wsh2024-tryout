@@ -1,5 +1,5 @@
 type Params = {
-  format: 'avif' | 'webp' | 'png' | 'jpg' | 'jxl';
+  format?: 'avif' | 'webp' | 'png' | 'jpg' | 'jxl';
   height?: number;
   imageId: string;
   width?: number;
@@ -8,7 +8,9 @@ type Params = {
 export function getImageUrl({ format, height, imageId, width }: Params): string {
   const url = new URL(`/images/${imageId}`, location.href);
 
-  url.searchParams.set('format', format);
+  if(format != null) {
+    url.searchParams.set('format', format);
+  }
   if (width != null) {
     url.searchParams.set('width', `${width}`);
   }

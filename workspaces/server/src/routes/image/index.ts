@@ -82,19 +82,18 @@ app.get(
   ),
   async (c) => {
     const reqId = Math.floor(Math.random() * 1000000000).toString().padStart(10);
-    const colorCode = 20 + Math.floor(Math.random() * 32);
 
-    const log = (..._any) => {}; // (...[first, ...second]: Parameters<typeof console.log>) => console.log(`\x1b[38;5;${colorCode}m${reqId} | ${first}`, ...second, "\x1b[m");
+    const log = (...[first, ...second]: Parameters<typeof console.log>) => {
+      const colorCode = 20 + Math.floor(Math.random() * 32);
+      console.log(`\x1b[38;5;${colorCode}m${reqId} | ${first}`, ...second, "\x1b[m");
+    }
+
+    console.time(reqId);
 
     const { globby } = await import('globby');
 
     const { ext: reqImgExt, name: reqImgId } = path.parse(c.req.valid('param').imageFile);
 
-    const resImgFormat = c.req.valid('query').format ?? reqImgExt.slice(1);
-
-    if (!isSupportedImageFormat(resImgFormat)) {
-      throw new HTTPException(501, { message: `Image format: ${resImgFormat} is not supported.` });
-    }
 
     const origFileGlob = [path.resolve(IMAGES_PATH, `${reqImgId}`), path.resolve(IMAGES_PATH, `${reqImgId}.*`)];
     const [origFilePath] = await globby(origFileGlob, { absolute: true, onlyFiles: true });
@@ -105,15 +104,21 @@ app.get(
     log(`${reqImgId}`);
 
     const origImgFormat = path.extname(origFilePath).slice(1);
+    const resImgFormat = (c.req.valid('query').format ?? reqImgExt.slice(1)) || origImgFormat;
+
     if (!isSupportedImageFormat(origImgFormat)) {
       throw new HTTPException(500, { message: 'Failed to load image.' });
     }
     if (resImgFormat === origImgFormat && c.req.valid('query').width == null && c.req.valid('query').height == null) {
       // 画像変換せずにそのまま返す
-      c.header('Content-Type', IMAGE_MIME_TYPE[resImgFormat]);
+      c.header('Content-Type', IMAGE_MIME_TYPE[resImgFormat || origImgFormat]);
       c.header('X-Conversion-Strategy', "Original");
       log("No image conversion was necessary");
       return c.body(createStreamBody(createReadStream(origFilePath)));
+    }
+
+    if (!isSupportedImageFormat(resImgFormat)) {
+      throw new HTTPException(501, { message: `Image format: ${resImgFormat} is not supported.` });
     }
 
     const reqImageSize = c.req.valid('query');
@@ -151,6 +156,8 @@ app.get(
 
     c.header('Content-Type', IMAGE_MIME_TYPE[resImgFormat]);
     c.header('X-Conversion-Strategy', "Manipulated");
+
+    console.timeEnd(reqId);
     return c.body(resBinary);
   },
 );
