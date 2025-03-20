@@ -12,6 +12,7 @@ export const compressMiddleware = createMiddleware(async (c, next) => {
 
   switch (accept) {
     case 'zstd': {
+      console.log("zstd is used");
       const transform = new TransformStream<Uint8Array, Uint8Array>({
         transform(chunk, controller) {
           controller.enqueue(ZstdStream.compress(chunk, 12, false));
