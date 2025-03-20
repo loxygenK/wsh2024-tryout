@@ -61,6 +61,10 @@ class BookRepository implements BookRepositoryInterface {
           episodes: {
             columns: {
               id: true,
+              name: true,
+              chapter: true,
+              imageId: true,
+              description: true,
             },
           },
           image: {
@@ -129,6 +133,10 @@ class BookRepository implements BookRepositoryInterface {
           episodes: {
             columns: {
               id: true,
+              name: true,
+              chapter: true,
+              imageId: true,
+              description: true,
             },
           },
           image: {

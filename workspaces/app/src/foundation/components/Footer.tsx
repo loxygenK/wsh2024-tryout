@@ -21,22 +21,13 @@ const _Content = styled.section`
 
 function useDeferredFetch(url: string) {
   const content = useRef<string>();
-  const [error, setError] = useState();
 
-  useEffect(() => {
-    fetch(url).then((res) => res.text()).then((str) => { content.current = str; }).catch((err) => setError(err));
-  }, []);
+  const get = async () => {
+    const str = await fetch(url).then((res) => res.text());
+    content.current = str;
 
-  const get = () => {
-    if(content.current === null) {
-      throw new Error("Content was not ready");
-    }
-    return content.current;
+    return str;
   };
-
-  if(error != null) {
-    throw error;
-  }
 
   return get;
 }
@@ -63,6 +54,7 @@ export const Footer: React.FC = () => {
   const updateDialogContent = useSetAtom(DialogContentAtom);
 
   const handleRequestToTermDialogOpen = async () => {
+    const text = await TERM();
     updateDialogContent(
       <_Content aria-labelledby={termDialogA11yId} role="dialog">
         <Text as="h2" color={Color.MONO_100} id={termDialogA11yId} typography={Typography.NORMAL16}>
@@ -70,13 +62,14 @@ export const Footer: React.FC = () => {
         </Text>
         <Spacer height={Space * 1} />
         <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
-          {TERM()}
+          {text}
         </Text>
       </_Content>,
     );
   };
 
   const handleRequestToContactDialogOpen = async () => {
+    const contact = await CONTACT();
     updateDialogContent(
       <_Content aria-labelledby={contactDialogA11yId} role="dialog">
         <Text as="h2" color={Color.MONO_100} id={contactDialogA11yId} typography={Typography.NORMAL16}>
@@ -84,13 +77,14 @@ export const Footer: React.FC = () => {
         </Text>
         <Spacer height={Space * 1} />
         <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
-          {CONTACT()}
+          {contact}
         </Text>
       </_Content>,
     );
   };
 
   const handleRequestToQuestionDialogOpen = async () => {
+    const text = await QUESTION();
     updateDialogContent(
       <_Content aria-labelledby={questionDialogA11yId} role="dialog">
         <Text as="h2" color={Color.MONO_100} id={questionDialogA11yId} typography={Typography.NORMAL16}>
@@ -98,13 +92,14 @@ export const Footer: React.FC = () => {
         </Text>
         <Spacer height={Space * 1} />
         <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
-          {QUESTION()}
+          {text}
         </Text>
       </_Content>,
     );
   };
 
   const handleRequestToCompanyDialogOpen = async () => {
+    const text = await COMPANY();
     updateDialogContent(
       <_Content aria-labelledby={companyDialogA11yId} role="dialog">
         <Text as="h2" color={Color.MONO_100} id={companyDialogA11yId} typography={Typography.NORMAL16}>
@@ -112,13 +107,14 @@ export const Footer: React.FC = () => {
         </Text>
         <Spacer height={Space * 1} />
         <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
-          {COMPANY()}
+          {text}
         </Text>
       </_Content>,
     );
   };
 
   const handleRequestToOverviewDialogOpen = async () => {
+    const text = await OVERVIEW();
     updateDialogContent(
       <_Content aria-labelledby={overviewDialogA11yId} role="dialog">
         <Text as="h2" color={Color.MONO_100} id={overviewDialogA11yId} typography={Typography.NORMAL16}>
@@ -126,7 +122,7 @@ export const Footer: React.FC = () => {
         </Text>
         <Spacer height={Space * 1} />
         <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
-          {OVERVIEW()}
+          {text}
         </Text>
       </_Content>,
     );
@@ -135,7 +131,7 @@ export const Footer: React.FC = () => {
   return (
     <Box as="footer" backgroundColor={Color.Background} p={Space * 1}>
       <Flex align="flex-start" direction="column" gap={Space * 1} justify="flex-start">
-        <img alt="Cyber TOON" src="/assets/cyber-toon.svg" />
+        <img alt="Cyber TOON" src="/assets/cyber-toon.svg" loading="lazy" height={45} />
         <Flex align="start" direction="row" gap={Space * 1.5} justify="center">
           <_Button disabled={!isClient} onClick={handleRequestToTermDialogOpen}>
             利用規約

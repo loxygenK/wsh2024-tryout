@@ -9,7 +9,7 @@ import { Spacer } from '../../../foundation/components/Spacer';
 import { Text } from '../../../foundation/components/Text';
 import { useImage } from '../../../foundation/hooks/useImage';
 import { Color, Radius, Space, Typography } from '../../../foundation/styles/variables';
-import { GetEpisodeResponse } from '@wsh-2024/schema/src/api/episodes/GetEpisodeResponse';
+import { GetBookResponse } from '@wsh-2024/schema/src/api/books/GetBookResponse';
 
 const _Wrapper = styled.li`
   width: 100%;
@@ -29,11 +29,11 @@ const _ImgWrapper = styled.div`
 
 type Props = {
   bookId: string;
-  episode: Pick<GetEpisodeResponse, "id" | "chapter" | "image" | "name" | "description">;
+  episode: Pick<GetBookResponse["episodes"][number], "id" | "chapter" | "imageId" | "name" | "description">;
 };
 
 export const EpisodeListItem: React.FC<Props> = ({ bookId, episode }) => {
-  const imageUrl = useImage({ height: 96, imageId: episode.image.id, width: 96 });
+  const imageUrl = useImage({ height: 96, imageId: episode.imageId, width: 96 });
 
   return (
     <_Wrapper>

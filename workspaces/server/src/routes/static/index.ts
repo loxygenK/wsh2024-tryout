@@ -14,8 +14,8 @@ const cacheControlMiddleware = createMiddleware(async (c, next) => {
   c.res.headers.append('Cache-Control', 'no-cache');
 });
 
-app.use('/assets', etag());
-app.use('/assets', cacheControlMiddleware);
+app.use('*', etag());
+app.use('*', cacheControlMiddleware);
 app.use(
   '*',
   serveStatic({
