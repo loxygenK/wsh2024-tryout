@@ -104,6 +104,7 @@ export const EpisodeDetailEditor: React.FC<Props> = ({ book, episode }) => {
       nameRuby: yup
         .string()
         .required('エピソード名（ふりがな）を入力してください')
+        // smell, could be char code check
         .matches(/^[\p{Script_Extensions=Hiragana}]+$/u, 'ふりがなはひらがなで入力してください'),
     }),
   });

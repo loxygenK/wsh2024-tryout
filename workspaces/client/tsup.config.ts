@@ -40,6 +40,7 @@ export default defineConfig(async (): Promise<Options[]> => {
           bigint: true
         };
         options.publicPath = '/';
+        options.metafile = true;
       },
       esbuildPlugins: [
         polyfillNode({
