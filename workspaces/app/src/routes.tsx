@@ -13,6 +13,7 @@ import { BookDetailPage } from './pages/BookDetailPage';
 import { EpisodeDetailPage } from './pages/EpisodeDetailPage';
 import { SearchPage } from './pages/SearchPage';
 import { TopPage } from './pages/TopPage';
+import { ArrowBack } from '@mui/icons-material';
 
 const _BackToTopButton = styled(Link)`
   display: flex;
@@ -34,7 +35,7 @@ export const Router: React.FC = () => {
           <ActionLayout
             leftContent={
               <_BackToTopButton href={'/'}>
-                <SvgIcon color={Color.MONO_100} height={32} type="ArrowBack" width={32} />
+                <SvgIcon color={Color.MONO_100} height={32} type={ArrowBack} width={32} />
                 <Text color={Color.MONO_100} typography={Typography.NORMAL16} weight="bold">
                   トップへ戻る
                 </Text>

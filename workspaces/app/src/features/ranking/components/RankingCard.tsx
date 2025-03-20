@@ -12,6 +12,7 @@ import { Text } from '../../../foundation/components/Text';
 import { useImage } from '../../../foundation/hooks/useImage';
 import { Color, Radius, Space, Typography } from '../../../foundation/styles/variables';
 import { useBook } from '../../book/hooks/useBook';
+import { NavigateNext } from '@mui/icons-material';
 
 const _Wrapper = styled.li`
   width: 100%;
@@ -92,7 +93,7 @@ const RankingCard: React.FC<Props> = ({ bookId }) => {
               <Text color={Color.Secondary} typography={Typography.NORMAL14} weight="bold">
                 この漫画を読む
               </Text>
-              <SvgIcon color={Color.Secondary} height={32} type="NavigateNext" width={32} />
+              <SvgIcon color={Color.Secondary} height={32} type={NavigateNext} width={32} />
             </Flex>
           </Box>
         </Flex>

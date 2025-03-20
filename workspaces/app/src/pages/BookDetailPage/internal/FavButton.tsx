@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import { SvgIcon } from '../../../features/icons/components/SvgIcon';
 import { Color, Space } from '../../../foundation/styles/variables';
+import { Favorite, FavoriteBorder } from '@mui/icons-material';
 
 const _Button = styled.button<{ $outlined: boolean }>`
   border-radius: 50%;
@@ -31,7 +32,7 @@ export const FavButton: React.FC<Props> = ({ enabled, onClick }) => {
       <SvgIcon
         color={enabled ? Color.Favorite : Color.MONO_40}
         height={24}
-        type={enabled ? 'Favorite' : 'FavoriteBorder'}
+        type={enabled ? Favorite : FavoriteBorder}
         width={24}
       />
     </_Button>

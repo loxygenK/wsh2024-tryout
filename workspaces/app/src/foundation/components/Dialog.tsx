@@ -6,6 +6,7 @@ import { DialogContentAtom } from '../atoms/DialogContentAtom';
 import { Color, Space } from '../styles/variables';
 
 import { Button } from './Button';
+import { Close } from '@mui/icons-material';
 
 const _Overlay = styled.div`
   position: fixed;
@@ -51,7 +52,7 @@ export const Dialog: React.FC = () => {
     <_Overlay>
       <_Wrapper>
         <_CloseButton onClick={() => updateContent(null)}>
-          <SvgIcon color={Color.MONO_A} height={32} type="Close" width={32} />
+          <SvgIcon color={Color.MONO_A} height={32} type={Close} width={32} />
         </_CloseButton>
         <_Container>{content}</_Container>
       </_Wrapper>

@@ -1,14 +1,12 @@
-import * as Icons from '@mui/icons-material';
+import type { SvgIconComponent } from '@mui/icons-material';
 
 type Props = {
   color: string;
   height: number;
-  type: keyof typeof Icons;
+  type: SvgIconComponent;
   width: number;
 };
 
-export const SvgIcon: React.FC<Props> = ({ color, height, type, width }) => {
-  // eslint-disable-next-line
-  const Icon = Icons[type];
+export const SvgIcon: React.FC<Props> = ({ color, height, type: Icon, width }) => {
   return <Icon style={{ color, height, width }} />;
 };
