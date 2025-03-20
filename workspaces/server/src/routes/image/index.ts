@@ -84,7 +84,7 @@ app.get(
     const reqId = Math.floor(Math.random() * 1000000000).toString().padStart(10);
     const colorCode = 20 + Math.floor(Math.random() * 32);
 
-    const log = (...[first, ...second]: Parameters<typeof console.log>) => console.log(`\x1b[38;5;${colorCode}m${reqId} | ${first}`, ...second, "\x1b[m");
+    const log = (..._any) => {}; // (...[first, ...second]: Parameters<typeof console.log>) => console.log(`\x1b[38;5;${colorCode}m${reqId} | ${first}`, ...second, "\x1b[m");
 
     const { globby } = await import('globby');
 
