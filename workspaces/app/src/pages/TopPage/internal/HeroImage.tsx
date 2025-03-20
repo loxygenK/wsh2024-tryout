@@ -8,8 +8,8 @@ const _Wrapper = styled.div`
 `;
 
 const _Image = styled.img`
-  display: inline-block;
   width: 100%;
+  height: 100%;
 `;
 
 export const HeroImage: React.FC = () => {
