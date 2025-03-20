@@ -8,6 +8,11 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     background-color: ${Color.MONO_A};
+    overflow: visible;
+  }
+
+  body.modal-on {
+    overflow: hidden;
   }
 
   a {

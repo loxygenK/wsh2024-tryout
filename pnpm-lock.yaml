@@ -136,9 +136,6 @@ importers:
       jotai:
         specifier: 2.7.0
         version: 2.7.0(@types/react@18.2.0)(react@18.2.0)
-      jquery:
-        specifier: 3.7.1
-        version: 3.7.1
       lodash:
         specifier: 4.17.21
         version: 4.17.21
@@ -224,9 +221,6 @@ importers:
       jimp:
         specifier: 0.22.12
         version: 0.22.12(encoding@0.1.13)
-      jquery:
-        specifier: 3.7.1
-        version: 3.7.1
       p-queue:
         specifier: 8.0.1
         version: 8.0.1
@@ -258,9 +252,6 @@ importers:
       '@types/jimp':
         specifier: 0.2.28
         version: 0.2.28(encoding@0.1.13)
-      '@types/jquery':
-        specifier: 3.5.29
-        version: 3.5.29
       '@types/path-browserify':
         specifier: 1.0.2
         version: 1.0.2
@@ -2201,9 +2192,6 @@ packages:
     resolution: {integrity: sha512-nLIVbImtcaEf90y2XQsMzfgWK5EZxfDg6EVWobrkFTFJiLqmx/yU5Jh+LYUN94ztzXX1GwQLFYHaEi8tfMeZzw==}
     deprecated: This is a stub types definition for jimp (https://github.com/oliver-moran/jimp#readme). jimp provides its own type definitions, so you don't need @types/jimp installed!
 
-  '@types/jquery@3.5.29':
-    resolution: {integrity: sha512-oXQQC9X9MOPRrMhPHHOsXqeQDnWeCDT3PelUIg/Oy8FAbzSZtFHRjc7IpbfFVmpLtJ+UOoywpRsuO5Jxjybyeg==}
-
   '@types/js-cookie@2.2.7':
     resolution: {integrity: sha512-aLkWa0C0vO5b4Sr798E26QgOkss68Un0bLjs7u9qxzPT5CG+8DuNTffWES58YzJs3hrVAOs1wonycqEBqNJubA==}
 
@@ -2262,9 +2250,6 @@ packages:
 
   '@types/serviceworker@0.0.83':
     resolution: {integrity: sha512-EwzwfDMIWyo0ulkbLm4KrnnHBSJ9PmnPQCk1nM3tmTMl9lTJsldx9ZGPq4J1ZD2yroMQ8vzUf7FNlWgvfpN/jw==}
-
-  '@types/sizzle@2.3.9':
-    resolution: {integrity: sha512-xzLEyKB50yqCUPUJkIsrVvoWNfFUbIZI+RspLWt8u+tIW/BetMBZtgV2LY/2o+tYH8dRvQ+eoPf3NdhQCcLE2w==}
 
   '@types/styled-components@5.1.34':
     resolution: {integrity: sha512-mmiVvwpYklFIv9E8qfxuPyIt/OuyIrn6gMOAMOFUO3WJfSrSE+sGUoa4PiZj77Ut7bKZpaa6o1fBKS/4TOEvnA==}
@@ -3837,9 +3822,6 @@ packages:
 
   jpeg-js@0.4.4:
     resolution: {integrity: sha512-WZzeDOEtTOBK4Mdsar0IqEU5sMr3vSV2RqkAIzUEV2BHnUfKGyswWFPFwK5EeDo93K3FohSHbLAjj0s1Wzd+dg==}
-
-  jquery@3.7.1:
-    resolution: {integrity: sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==}
 
   js-cookie@2.2.1:
     resolution: {integrity: sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==}
@@ -7472,10 +7454,6 @@ snapshots:
       - debug
       - encoding
 
-  '@types/jquery@3.5.29':
-    dependencies:
-      '@types/sizzle': 2.3.9
-
   '@types/js-cookie@2.2.7': {}
 
   '@types/jsesc@3.0.3': {}
@@ -7525,8 +7503,6 @@ snapshots:
   '@types/semver@7.5.8': {}
 
   '@types/serviceworker@0.0.83': {}
-
-  '@types/sizzle@2.3.9': {}
 
   '@types/styled-components@5.1.34':
     dependencies:
@@ -9473,8 +9449,6 @@ snapshots:
   joycon@3.1.1: {}
 
   jpeg-js@0.4.4: {}
-
-  jquery@3.7.1: {}
 
   js-cookie@2.2.1: {}
 
