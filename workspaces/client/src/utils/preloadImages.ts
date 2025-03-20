@@ -1,9 +1,5 @@
 import path from 'path-browserify';
 
-async function wait(milliseconds: number) {
-  return new Promise((resolve) => setTimeout(resolve, milliseconds));
-}
-
 export function preloadImages() {
   if (process.env['PATH_LIST'] == null) {
     return;
@@ -14,8 +10,8 @@ export function preloadImages() {
     return ['.bmp', '.jpg', '.jpeg', '.gif', '.png', '.webp', '.avif'].includes(extension);
   });
 
-  const prefetch = Promise.all(
-    imagePathList.map((imagePath) => {
+  window.addEventListener("load", () => {
+    imagePathList.forEach((imagePath) => queueMicrotask(() => {
       const link = document.createElement('link');
 
       Object.assign(link, {
@@ -28,6 +24,7 @@ export function preloadImages() {
         rel: 'preload',
       });
       document.head.appendChild(link);
-    }),
-  );
+    }));
+  });
+
 }
